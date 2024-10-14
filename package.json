@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Maubinyaachi/yolo-Microservice/issues"
   },
-  "homepage": "https://github.com/Maubinyaachi/yolo-Microservice#readme"
+  "homepage": "https://github.com/Maubinyaachi/yolo-Microservice#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
 }

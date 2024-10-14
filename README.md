@@ -1,14 +1,34 @@
-## Overview
-Clone the respository
 
+## YOLO Application Containerization with Docker
+Overview
+This project demonstrates the containerization of an e-commerce web application using Docker and Docker Compose. The backend connects to a MongoDB database, and the frontend. The database, backend, and frontend are all run in separate containers orchestrated using Docker Compose.
 
+All development work was done on the main branch and merged to the master branch before final deployment.
 
+Requirements
+Before you start, ensure that you have the following installed on your machine:
+Docker
+Docker Compose
+Node.js (for local development/testing)
 
-## Docker containers running
+## Steps to Run application locally
+git clone https://github.com/Naspwon/yolo.git
+cd yolo
+
+## Build and run application using docker-compose
+docker-compose up --build
+
+## Verify docker containers running
 nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ docker ps
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS         PORTS                                                                                      NAMES
-e33e698d84a7   missnayomie/brian-yolo-client:v1.0.0    "npm start"              5 minutes ago   Up 4 minutes   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp                                                  brian-yolo-client
-c428e35125ba   missnayomie/brian-yolo-backend:v1.0.0   "node server.js"         5 minutes ago   Up 5 minutes   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp                                                  brian-yolo-backend
+5675df2a6877   missnayomie/brian-yolo-client:v1.0.1    "npm start"              9 minutes ago   Up 9 minutes   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp                                                  brian-yolo-client
+21a7c7502858   missnayomie/brian-yolo-backend:v1.0.1   "node server.js"         9 minutes ago   Up 9 minutes   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp                                                  brian-yolo-backend
+07a42fdbff89   mongo                                   "docker-entrypoint.s…"   9 minutes ago   Up 9 minutes   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp                                              app-mongo
+
+The output should display the backend, frontend, and MongoDB containers running with their respective ports exposed:
+Backend (Node.js): Port 5000
+Frontend (React): Port 3000
+MongoDB: Port 27017
 
 
 ## Docker images
@@ -59,5 +79,8 @@ dockerhub-image: contains a screenshot of the image pushed to docker hub
 products-image: contains a screenshot of products successfully added and persisted.
 clientimagewithtagging and backendimage with tagging both show the versions used
 
+## To access the application
+Frontend: Open your browser and navigate to http://localhost:3000.
 
-Worked on main branch, then merged all changes to master.
+## To stop and remove the running containers
+docker-compose down
