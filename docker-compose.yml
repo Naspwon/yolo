@@ -22,7 +22,7 @@ services:
     depends_on: 
       - brian-yolo-backend
     networks:
-      - app-net
+      - nash-net
 
   #Builds the backend Docker image and creates the backend microservice
   brian-yolo-backend:
@@ -37,7 +37,7 @@ services:
     depends_on: 
       - app-ip-mongo
     networks:
-      - app-net
+      - nash-net
 
   #Creates the database microservice
   app-ip-mongo:
@@ -46,7 +46,7 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - app-net
+      - nash-net
     volumes:
       - type: volume
         source: app-mongo-data
@@ -54,14 +54,14 @@ services:
 
 #Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
-  app-net:
-    name: app-net
+  nash-net:
+    name: nash-network
     driver: bridge
     attachable: true
     ipam:
       config:
-        - subnet: 172.20.0.0/16 
-          ip_range: 172.20.0.0/16 
+        - subnet: 172.21.0.0/16 
+          ip_range: 172.21.0.0/16 
 
 #Creates a Docker volume that persists all the data stored in the database
 volumes:
