@@ -128,7 +128,7 @@ In this configuration, the backend container is mapped to port 5000 of the host,
 
 
 ## 4.  Docker Compose Volume Definition and Usage
-The Docker Compose file includes volume definitions for MongoDB data storage. The relevant section is as follows:
+The Docker Compose file includes volume definitions for MongoDB data storage. This volume ensures that MongoDB data is not lost even if the container is stopped or removed:
 
 yaml
 
@@ -138,7 +138,7 @@ volumes:
     driver: local
 
 ```
-This volume, mongodb_data, is designated for storing MongoDB data. It ensures that the data remains intact and is not lost even if the container is stopped or deleted.
+This prevents data loss by persisting it outside of the container
 
 ## 5. Git Workflow to achieve the task
 
