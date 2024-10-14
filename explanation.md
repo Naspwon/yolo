@@ -1,13 +1,13 @@
 ## 1. Choice of Base Image
- The base image used to build the containers is `node:16-alpine3.16`. It is derived from the Alpine Linux distribution, making it lightweight and compact. 
+ The base image used to build the containers is `node:16-alpine3.16`, based on Alpine Linux distribution, known for its minimal size. 
  Used 
- 1. Client:`node:22-alpine3.19`
- 2. Backend: `node:22-alpine3.19`
- 3.Mongo : `mongo:6.0 `
+ 1. Client:`node:16-alpine3.16`
+ 2. Backend: `node:16-alpine3.16`
+ 3. Mongo : `mongo:6.0 `: For the database container
        
 
 ## 2. Dockerfile directives used in the creation and running of each container.
- I used two Dockerfiles. One for the Client and the other one for the Backend.
+ Two dockerfiles were created: one for the Client(frontend) and the other one for the backend.
 
 **Client Dockerfile**
 
