@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Maubinyaachi/yolo-Microservice.git"
+    "url": "git+https://github.com/Naspwon/yolo.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Maubinyaachi/yolo-Microservice/issues"
+    "url": "https://github.com/Naspwon/yolo/issues"
   },
-  "homepage": "https://github.com/Maubinyaachi/yolo-Microservice#readme",
+  "homepage": "https://github.com/Naspwon/yolo#readme",
   "dependencies": {
     "dotenv": "^16.4.5"
   }
