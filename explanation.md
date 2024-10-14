@@ -94,7 +94,7 @@ CMD ["npm", "start"]
 ```
 
 ## 3. Docker Compose Networking
-The (docker-compose.yml) defines the networking configuration for the project. It includes the allocation of application ports. The relevant sections are as follows:
+The (docker-compose.yml) configures the networking configuration for the project, for all containers to communicate with one another. It includes the allocation of application ports. The relevant sections are as follows:
 
 
 ```
@@ -104,27 +104,27 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - yolo-network
+      - nash-net
 
   client:
     # ...
     ports:
       - "3000:3000"
     networks:
-      - yolo-network
+      - nash-net
   
   mongodb:
     # ...
     ports:
       - "27017:27017"
     networks:
-      - yolo-network
+      - nash-net
 
 networks:
-  yolo-network:
+  nash-net:
     driver: bridge
 ```
-In this configuration, the backend container is mapped to port 5000 of the host, the client container is mapped to port 3000 of the host, and mongodb container is mapped to port 27017 of the host. All containers are connected to the yolo-network bridge network.
+In this configuration, the backend container is mapped to port 5000 of the host, the client container is mapped to port 3000 of the host, and mongodb container is mapped to port 27017 of the host. All containers are connected to the nash-net bridge network.
 
 
 ## 4.  Docker Compose Volume Definition and Usage
