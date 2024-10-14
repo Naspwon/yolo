@@ -1,4 +1,5 @@
 ## Overview
+Clone the respository
 
 
 
@@ -8,6 +9,14 @@ nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ docker ps
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS         PORTS                                                                                      NAMES
 e33e698d84a7   missnayomie/brian-yolo-client:v1.0.0    "npm start"              5 minutes ago   Up 4 minutes   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp                                                  brian-yolo-client
 c428e35125ba   missnayomie/brian-yolo-backend:v1.0.0   "node server.js"         5 minutes ago   Up 5 minutes   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp                                                  brian-yolo-backend
+
+
+## Docker images
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ docker images
+REPOSITORY                       TAG       IMAGE ID       CREATED             SIZE
+missnayomie/brian-yolo-client    v1.0.0    2dd1a63d75b6   About an hour ago   298MB
+missnayomie/brian-yolo-backend   v1.0.0    c0d474403fe1   About an hour ago   81.3MB
+
 
 
 ## docker-compose images
@@ -49,3 +58,6 @@ Snippets found in product-image folder
 dockerhub-image: contains a screenshot of the image pushed to docker hub
 products-image: contains a screenshot of products successfully added and persisted.
 clientimagewithtagging and backendimage with tagging both show the versions used
+
+
+Worked on main branch, then merged all changes to master.

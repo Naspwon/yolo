@@ -38,7 +38,7 @@ FROM node:16-alpine3.16 as production-stage
 
 WORKDIR /client
 
-# Copy only the necessary files from the build stage
+# Copy only the necessary files from the build stage thus minimising final image size
 COPY --from=build-stage /client/build ./build
 COPY --from=build-stage /client/public ./public
 COPY --from=build-stage /client/src ./src
@@ -147,20 +147,27 @@ To achieve the task the following git workflow was used:
 1. Fork the repository from the original repository.
 2. Clone the repo: `git clone https://github.com/Naspwon/yolo.git`
 3. Create a .gitignore file to exclude unnecessary     files and directories from version control.
-4. Added Dockerfile for the client to the repo:
+4. Switched to main branch
+`git checkout -b main`
+`git push origin main`
+5. Added Dockerfile for the client to the repo:
 `git add client/Dockerfile`
-5. Add Dockerfile for the backend to the repo:
+6. Add Dockerfile for the backend to the repo:
 `git add backend/dockerfile`
-6. Committed the changes:
+7. Committed the changes:
 `git commit -m "Added Dockerfiles"`
-7. Added docker-compose file to the repo:
+8. Added docker-compose file to the repo:
 `git add docker-compose.yml`
-8. Committed the changes:
+9. Committed the changes:
 `git commit -m "Added docker-compose file"`
-9. Pushed the files to github:
+10. Pushed the files to github:
 `git push `
-10. Built the client and backend images:
+11. Built the client and backend images:
 `docker-compose up --build`
-11. Pushed the built imags to docker registry:
+12. Pushed the built imags to docker registry:
 `docker compose push`
-
+13. Merge back to master
+`git checkout master`
+`git pull origin master`
+`git merge main`
+`git push origin master`
