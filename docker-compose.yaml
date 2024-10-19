@@ -54,8 +54,8 @@ services:
 
 #Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
-  app-net:
-    name: mynetwork
+  mynetwork:
+    name: app-net
     driver: bridge
     attachable: true
     ipam:
