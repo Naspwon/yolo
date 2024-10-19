@@ -33,3 +33,37 @@ REPOSITORY                       TAG       IMAGE ID       CREATED          SIZE
 missnayomie/brian-yolo-client    v1.0.0    e571bc06c777   8 minutes ago    303MB
 missnayomie/brian-yolo-backend   v1.0.0    1f6457794630   11 minutes ago   80.5MB
 mongo                            latest    d3295cd2d11f   9 days ago       854MB
+
+Docker-compose images
+nash@nash-HP-Spectre:~/Documents/Moringa/IP-2/yolo$ docker-compose images
+    Container                  Repository              Tag       Image Id       Size  
+--------------------------------------------------------------------------------------
+app-mongo            mongo                            latest   d3295cd2d11f   854.2 MB
+brian-yolo-backend   missnayomie/brian-yolo-backend   v1.0.0   676a2cdb44a6   80.49 MB
+brian-yolo-client    missnayomie/brian-yolo-client    v1.0.0   8f6d885a100a   302.9 MB
+
+Docker-network created
+nash@nash-HP-Spectre:~/Documents/Moringa/IP-2/yolo$ docker network ls
+NETWORK ID     NAME              DRIVER    SCOPE
+20137a2c9049   app-net           bridge    local
+
+Pushing to docker hub
+-----------------------
+nash@nash-HP-Spectre:~/Documents/Moringa/IP-2/yolo$ docker-compose push
+Pushing brian-yolo-backend (missnayomie/brian-yolo-backend:v1.0.0)...
+The push refers to repository [docker.io/missnayomie/brian-yolo-backend]
+f87ddc535f3d: Pushed
+ac7df82744aa: Pushed
+1bb782f4943f: Pushed
+0e182002b05f: Layer already exists
+v1.0.0: digest: sha256:a344ef84fddda6e0fc05d8cccd23172ac102aa338105e81f360b02cbd279b9a1 size: 1157
+Pushing brian-yolo-client (missnayomie/brian-yolo-client:v1.0.0)...
+The push refers to repository [docker.io/missnayomie/brian-yolo-client]
+09d8abcfe1f6: Pushed
+5e238fd0d51c: Pushed
+1bb782f4943f: Mounted from missnayomie/brian-yolo-backend
+0e182002b05f: Layer already exists
+v1.0.0: digest: sha256:373ab627220deae84d0c2ec61fb6deb97138603fc49b2b6cec77ff93e048785f size: 1158
+
+
+
