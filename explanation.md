@@ -46,6 +46,10 @@ brian-yolo-client    missnayomie/brian-yolo-client    v1.0.0   8f6d885a100a   30
 nash@nash-HP-Spectre:~/Documents/Moringa/IP-2/yolo$ docker network ls
 NETWORK ID     NAME              DRIVER    SCOPE
 20137a2c9049   app-net           bridge    local
+1d23b9a0caf3   bridge            bridge    local
+c708d20e9969   host              host      local
+defd41aaad0d   jenkins-network   bridge    local
+
 
 # Pushing to docker hub
 -----------------------
