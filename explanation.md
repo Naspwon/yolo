@@ -12,13 +12,13 @@ Docker
 Docker-Compose 
 Node.js (for local development/testing)
 
-Steps to Run application locally
+## Steps to Run application locally
 git clone https://github.com/Naspwon/yolo.git 
 cd yolo
 Build and run application using docker-compose
 docker-compose up --build
 
-Verify docker containers running
+## Verify docker containers running
 docker ps
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS         PORTS                                                                                      NAMES
 dcf669a7a147   missnayomie/brian-yolo-client:v1.0.0    "npm start"              6 minutes ago   Up 6 minutes   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp                                                  brian-yolo-client
@@ -27,14 +27,14 @@ e6458576537f   mongo                                   "docker-entrypoint.s…" 
 
 The output should display the backend, frontend, and MongoDB containers running with their respective ports exposed: Backend (Node.js): Port 5000 Frontend (React): Port 3000 MongoDB: Port 27017
 
-Docker Images
+# Docker Images
 nash@nash-HP-Spectre:~/Documents/Moringa/IP-2/yolo$ docker images
 REPOSITORY                       TAG       IMAGE ID       CREATED          SIZE
 missnayomie/brian-yolo-client    v1.0.0    e571bc06c777   8 minutes ago    303MB
 missnayomie/brian-yolo-backend   v1.0.0    1f6457794630   11 minutes ago   80.5MB
 mongo                            latest    d3295cd2d11f   9 days ago       854MB
 
-Docker-compose images
+## Docker-compose images
 nash@nash-HP-Spectre:~/Documents/Moringa/IP-2/yolo$ docker-compose images
     Container                  Repository              Tag       Image Id       Size  
 --------------------------------------------------------------------------------------
@@ -42,12 +42,12 @@ app-mongo            mongo                            latest   d3295cd2d11f   85
 brian-yolo-backend   missnayomie/brian-yolo-backend   v1.0.0   676a2cdb44a6   80.49 MB
 brian-yolo-client    missnayomie/brian-yolo-client    v1.0.0   8f6d885a100a   302.9 MB
 
-Docker-network created
+# Docker-network created
 nash@nash-HP-Spectre:~/Documents/Moringa/IP-2/yolo$ docker network ls
 NETWORK ID     NAME              DRIVER    SCOPE
 20137a2c9049   app-net           bridge    local
 
-Pushing to docker hub
+# Pushing to docker hub
 -----------------------
 nash@nash-HP-Spectre:~/Documents/Moringa/IP-2/yolo$ docker-compose push
 Pushing brian-yolo-backend (missnayomie/brian-yolo-backend:v1.0.0)...
@@ -66,4 +66,12 @@ The push refers to repository [docker.io/missnayomie/brian-yolo-client]
 v1.0.0: digest: sha256:373ab627220deae84d0c2ec61fb6deb97138603fc49b2b6cec77ff93e048785f size: 1158
 
 
+# Snippets found in images-ip2 folder
+yolo-backend-tags and yolo-client-tagging indicate the tags on dockerhub
+web-image has a snippet of products added on the website and persist
+docker-images-pushed: snippet of images pushed to dockerhub
 
+# To access the application
+Frontend: Open your browser and navigate to http://localhost:3000.
+To stop and remove the running containers
+docker-compose down
