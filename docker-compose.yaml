@@ -12,7 +12,7 @@ services:
 
   #Builds the frontend Docker image and creates the frontend microservice
   brian-yolo-client:
-    image: brianbwire/brian-yolo-client:v1.0.0
+    image: missnayomie/brian-yolo-client:v1.0.0
     build: ./client
     container_name: brian-yolo-client
     stdin_open: true
@@ -22,11 +22,11 @@ services:
     depends_on: 
       - brian-yolo-backend
     networks:
-      - app-net
+      - mynetwork
 
   #Builds the backend Docker image and creates the backend microservice
   brian-yolo-backend:
-    image: brianbwire/brian-yolo-backend:v1.0.0
+    image: missnayomie/brian-yolo-backend:v1.0.0
     build: ./backend
     container_name: brian-yolo-backend
     stdin_open: true
@@ -37,7 +37,7 @@ services:
     depends_on: 
       - app-ip-mongo
     networks:
-      - app-net
+      - mynetwork
 
   #Creates the database microservice
   app-ip-mongo:
@@ -46,7 +46,7 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - app-net
+      - mynetwork
     volumes:
       - type: volume
         source: app-mongo-data
@@ -54,7 +54,7 @@ services:
 
 #Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
-  app-net:
+  mynetwork:
     name: app-net
     driver: bridge
     attachable: true
