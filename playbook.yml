@@ -1,9 +1,11 @@
 ---
-- name: Ansible playbook to dockerize and run yolo e-commerce app using ansible
+- name: Set up and run Yolo e-commerce app
   hosts: all
   become: true
+  vars_files:
+    - vars/main.yml
   roles: 
-    - frontend-deployment
-    - setup-mongodb   
-    - backend-deployment
-    
+    - docker
+    - frontend
+    - mongo
+    - backend

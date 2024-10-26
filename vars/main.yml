@@ -1,0 +1,4 @@
+---
+compose_file: "/home/vagrant/YoloApp/"
+github_repo_url: "https://github.com/Naspwon/yolo.git"
+frontend_port: 3000

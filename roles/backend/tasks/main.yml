@@ -1,0 +1,13 @@
+# roles/backend-deployment/tasks/main.yml
+---
+- name: Clone backend code from GitHub
+  git:
+    repo: "{{ github_repo_url }}"
+    dest: "{{ compose_file_path }}/backend"
+  tags: backend
+
+- name: Build backend Docker image
+  command: docker build -t backend-image .
+  args:
+    chdir: "{{ compose_file_path }}/backend"
+  tags: backend
