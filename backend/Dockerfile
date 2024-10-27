@@ -1,18 +1,30 @@
-# Base image
-FROM node:14-alpine
+# Set base image
+FROM node:16-alpine3.16
 
-# Set working directory
+# Set the working directory
 WORKDIR /home/vagrant/YoloApp/
 
-# Copy package.json and package-lock.json
+# Copy package.json and package-lock.json to the container
 COPY package*.json /home/vagrant/YoloApp/
 
-# Install dependencies
-RUN npm install --silent
+# Install dependencies and clears the npm cache and removes any temporary files
+RUN npm install --only=production && \
+    npm cache clean --force && \
+    rm -rf /tmp/*
 
-# Copy the remaining backend files
+# Copy the rest of the application code
 COPY . /home/vagrant/YoloApp/
 
+# Set the environment variable for the app
+ENV NODE_ENV=production
+
+# Expose the port used by the app
 EXPOSE 5000
-# Start the app
+
+# Prune the node_modules directory to remove development dependencies and clears the npm cache and removes any temporary files
+RUN npm prune --production && \
+    npm cache clean --force && \
+    rm -rf /tmp/*
+
+# Start the application
 CMD ["npm", "start"]
