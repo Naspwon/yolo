@@ -1,1 +1,6 @@
 compose_file: "/home/vagrant/YoloApp/"
+
+---
+mongo_container_name: mongodb
+mongo_network: mynetwork
+# mongo_volume: app-mongo-data

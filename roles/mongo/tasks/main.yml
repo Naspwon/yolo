@@ -1,16 +1,16 @@
 # roles/setup-mongodb/tasks/main.yml
 ---
-- name: Pull MongoDB Docker image
-  docker_image:
-    name: mongo
-    source: pull
-  tags: mongodb
-
 - name: Run MongoDB container
   docker_container:
     name: mongodb
-    image: mongo
+    image: mongo:latest
+    networks:
+      - mynetwork
     state: started
+    volumes:
+      - type: volume
+        source: mongodb_data
+        target: /data/db
     ports:
       - "27017:27017"
   tags: mongodb
