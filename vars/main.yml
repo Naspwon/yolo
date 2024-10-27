@@ -1,4 +1,14 @@
 ---
+# vars/main.yml
+
+# Directory to store application files and docker-compose.yml
 compose_file: "/home/vagrant/YoloApp/"
+
+# GitHub repository URL for the application
 github_repo_url: "https://github.com/Naspwon/yolo.git"
+
+# Git branch to clone
+github_branch: "main"
+
+# Port to expose for the frontend application
 frontend_port: 3000

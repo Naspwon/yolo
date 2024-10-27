@@ -3,11 +3,11 @@
 - name: Clone frontend code from GitHub
   git:
     repo: "{{ github_repo_url }}"
-    dest: "{{ compose_file }}/frontend"
+    dest: "{{ compose_file }}frontend"
   tags: frontend
 
 - name: Build frontend Docker image
   command: docker build -t frontend-image .
   args:
-    chdir: "{{ compose_file }}/frontend"
+    chdir: "{{ compose_file }}frontend"
   tags: frontend

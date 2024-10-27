@@ -3,11 +3,11 @@
 - name: Clone backend code from GitHub
   git:
     repo: "{{ github_repo_url }}"
-    dest: "{{ compose_file_path }}/backend"
+    dest: "{{ compose_file }}backend"
   tags: backend
 
 - name: Build backend Docker image
   command: docker build -t backend-image .
   args:
-    chdir: "{{ compose_file_path }}/backend"
+    chdir: "{{ compose_file }}backend"
   tags: backend

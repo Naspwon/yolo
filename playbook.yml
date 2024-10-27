@@ -3,7 +3,18 @@
   hosts: all
   become: true
   vars_files:
-    - vars/main.yml
+    - vars/main.yml 
+  
+  tasks:
+    - name: Ensure destination directory exists
+      file:
+        path: "{{ compose_file }}"  # Use the variable defined in vars/main.yml
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0755'
+
+
   roles: 
     - docker
     - frontend

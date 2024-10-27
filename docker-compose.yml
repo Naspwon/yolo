@@ -18,12 +18,12 @@ services:
       - yolo-backend
     networks:
       - mynetwork
-    # volumes:
-    #   - ./client:/home/vagrant/YoloApp/client
+    volumes:
+      - ./client:/home/vagrant/YoloApp/client
 
   #Builds the backend Docker image and creates the backend microservice
   yolo-backend:
-    image: missnayomie/brian-yolo-backend:v1.0.0
+    image: missnayomie/yolo-backend:v1.0.0
     build: 
       context: ./backend
       dockerfile: Dockerfile
@@ -39,6 +39,8 @@ services:
       #   condition: service_healthy
     networks:
       - mynetwork
+    volumes:
+      - ./client:/home/vagrant/YoloApp/client
 
   #Creates the database microservice
   mongodb:

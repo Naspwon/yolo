@@ -1,21 +1,129 @@
 ---
-- name: Update the package index
-  apt:
-    update_cache: yes
+# Install and Configure Docker
 
-- name: Install Docker
+# Install Python3 and pip3
+- name: Install Python3 and pip3
   apt:
-    name: docker.io
+    name:
+      - python3
+      - python3-pip
+    state: present
+  when: ansible_os_family == "Debian"
+
+# Update pip to the latest version
+- name: Update pip
+  pip:
+    name: pip
+    state: latest
+    executable: pip3
+
+# Install 'Docker SDK for Python' using pip
+- name: Install 'Docker SDK for Python' using pip
+  pip:
+    name: docker
+    state: present
+    executable: pip3
+
+# # Install 'setuptools_rust' package
+# - name: Install 'setuptools_rust' package
+#   pip:
+#     name: setuptools_rust
+#     state: present
+#     executable: pip3
+
+# # Install Docker Compose using pip
+# - name: Install Docker Compose
+#   pip:
+#     name: docker-compose
+#     state: present
+#     executable: pip3
+
+# Install the Docker GPG key
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
+# Add Docker official repository
+- name: Add Docker official repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
+# Install Docker packages
+- name: Install Docker packages
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+
+# Start Docker service
 - name: Start Docker service
   service:
     name: docker
     state: started
     enabled: yes
 
-- name: Add current user to Docker group
+# Add current user to docker group
+- name: Add current user to docker group
   user:
     name: "{{ ansible_user }}"
     groups: docker
     append: yes
+
+# Download Docker Compose binary
+- name: Download Docker Compose binary
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: "0755"
+
+# Verify Docker Compose installation
+- name: Verify Docker Compose installation
+  command: docker-compose --version
+
+# - name: Clone GitHub repository
+#   git:
+#     repo: "{{ github_repo_url }}"
+#     dest: /home/vagrant/YoloApp/
+#     version: "{{ github_branch }}"
+#     force: yes
+#   tags: clone_repo
+# Check if docker-compose.yml already exists
+- name: Check if docker-compose.yml exists
+  stat:
+    path: "/home/vagrant/YoloApp/docker-compose.yml"
+  register: compose_file_stat
+  
+- name: Copy docker-compose.yml
+  copy:
+    src: /home/nash/Documents/Moringa/yolo/docker-compose.yml
+    dest: /home/vagrant/YoloApp/docker-compose.yml
+  when: not compose_file_stat.stat.exists
+
+# - name: Start application containers
+#   command: docker-compose up -d
+#   args:
+#     chdir: /home/vagrant/YoloApp/
+
+
+
+# Ensure correct permissions for Docker Compose file
+- name: Ensure correct permissions for Docker Compose file
+  file:
+    path: "{{ compose_file }}docker-compose.yml"
+    mode: "0644"
+    owner: vagrant
+    group: vagrant
+
+# Run Docker Compose pull in the VM
+- name: Run Docker Compose pull
+  command: /usr/local/bin/docker-compose -f "{{ compose_file }}docker-compose.yml" pull -d
+
+# Run Docker Compose up to start services in the VM
+- name: Deploy Docker Compose
+  command: /usr/local/bin/docker-compose -f "{{ compose_file }}docker-compose.yml" up -d
+  args:
+    chdir: "{{ compose_file }}"
