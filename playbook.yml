@@ -4,8 +4,9 @@
   become: true
   # vars:
   #   compose_file: "/home/vagrant/YoloApp/"
-  vars:
-    - vars/main.yml 
+  tasks:
+    - name: Load variables from file
+      include_vars: vars/main.yml
 
 
   roles: 
