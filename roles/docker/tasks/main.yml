@@ -84,19 +84,20 @@
 - name: Verify Docker Compose installation
   command: docker-compose --version
 
-# - name: Clone GitHub repository
-#   git:
-#     repo: "{{ github_repo_url }}"
-#     dest: /home/vagrant/YoloApp/
-#     version: "{{ github_branch }}"
-#     force: yes
-#   tags: clone_repo
+- name: Clone GitHub repository
+  git:
+    repo: "{{ github_repo_url }}"
+    dest: /home/vagrant/YoloApp/
+    version: "{{ github_branch }}"
+    force: yes
+  tags: clone_repo
+
 # Check if docker-compose.yml already exists
 - name: Check if docker-compose.yml exists
   stat:
     path: "/home/vagrant/YoloApp/docker-compose.yml"
   register: compose_file_stat
-  
+
 - name: Copy docker-compose.yml
   copy:
     src: /home/nash/Documents/Moringa/yolo/docker-compose.yml
