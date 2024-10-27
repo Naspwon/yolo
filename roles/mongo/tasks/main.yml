@@ -9,7 +9,7 @@
     state: started
     volumes:
       - type: volume
-        source: mongodb_data
+        source: yoloapp_mongodb_data
         target: /data/db
     ports:
       - "27017:27017"
