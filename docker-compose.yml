@@ -45,6 +45,7 @@ services:
   #Creates the database microservice
   mongodb:
     image: mongo:latest
+    container_name: mongodb
     ports:
       - "27017:27017"
     networks:

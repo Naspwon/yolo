@@ -2,17 +2,10 @@
 - name: Set up and run Yolo e-commerce app
   hosts: all
   become: true
-  vars_files:
+  # vars:
+  #   compose_file: "/home/vagrant/YoloApp/"
+  vars:
     - vars/main.yml 
-  
-  tasks:
-    - name: Ensure destination directory exists
-      file:
-        path: "{{ compose_file }}"  # Use the variable defined in vars/main.yml
-        state: directory
-        owner: vagrant
-        group: vagrant
-        mode: '0755'
 
 
   roles: 
