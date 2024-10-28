@@ -1,0 +1,40 @@
+
+## Frontend Deployment: frontend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: missnayomie/frontend-image:v1.0.0
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: frontend-volume
+          mountPath: /home/vagrant/YoloApp/client
+      volumes:
+      - name: frontend-volume
+        hostPath:
+          path: /home/james/MyWork/MORINGA/IP/week4_IP/yolo/client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
