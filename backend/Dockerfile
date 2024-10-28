@@ -5,7 +5,7 @@ FROM node:16-alpine3.16
 WORKDIR /home/vagrant/YoloApp/
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json /home/vagrant/YoloApp/
+COPY package*.json ./
 
 # Install dependencies and clears the npm cache and removes any temporary files
 RUN npm install --only=production && \
@@ -13,7 +13,7 @@ RUN npm install --only=production && \
     rm -rf /tmp/*
 
 # Copy the rest of the application code
-COPY . /home/vagrant/YoloApp/
+COPY . .
 
 # Set the environment variable for the app
 ENV NODE_ENV=production

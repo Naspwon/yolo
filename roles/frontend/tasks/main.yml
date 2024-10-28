@@ -1,10 +1,9 @@
 # roles/frontend-deployment/tasks/main.yml
 ---
-- name: Clone frontend code from GitHub
-  git:
-    repo: "{{ github_repo_url }}"
-    dest: "{{ compose_file }}frontend"
-  tags: frontend
+- name: Pull image from repository
+  docker_image:
+    name: missnayomie/yolo-client:v1.0.0
+    source: pull
 
 - name: Build frontend Docker image
   command: docker build -t frontend-image .

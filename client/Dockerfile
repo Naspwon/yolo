@@ -25,7 +25,7 @@ FROM node:16-alpine3.16 as build-stage
 WORKDIR /home/vagrant/YoloApp/
 
 # Copy package.json and package-lock.json
-COPY package*.json /home/vagrant/YoloApp/
+COPY package*.json ./
 
 # Install dependencies and clears the npm cache and removes any temporary files
 RUN npm install --only=production && \
@@ -33,7 +33,7 @@ RUN npm install --only=production && \
     rm -rf /tmp/*
 
 # Copy the rest of the application code
-COPY . /home/vagrant/YoloApp/
+COPY . .
 
 # Build the application and  remove development dependencies
 RUN npm run build && \

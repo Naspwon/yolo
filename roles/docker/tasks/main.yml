@@ -125,6 +125,7 @@
 
 # Run Docker Compose up to start services in the VM
 - name: Deploy Docker Compose
-  command: /usr/local/bin/docker-compose -f "{{ compose_file }}docker-compose.yml" up -d
+  command: docker-compose up -d
   args:
     chdir: "{{ compose_file }}"
+  become: true

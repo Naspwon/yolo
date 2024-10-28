@@ -40,7 +40,7 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./client:/home/vagrant/YoloApp/client
+      - ./backend:/home/vagrant/YoloApp/backend
 
   #Creates the database microservice
   mongodb:
