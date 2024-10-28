@@ -88,3 +88,127 @@ Frontend: Open your browser and navigate to http://localhost:3000.
 
 ## To stop and remove the running containers
 docker-compose down
+
+### ANSIBLE AUTOMATION
+add a vagrant vm 
+ - vagrant box add geerlingguy/ubuntu2004
+ - vagrant box list
+ - vagrant init geerlingguy/ubuntu2004
+ - vagrant up
+ - vagrant status
+ - vagrant ssh-config
+configure vagrant file to specify ansible playbook location
+implement ansible tasks using ansible galaxy init
+run vagrant provision
+
+## Run the file using  vagrant provision
+    default: Running ansible-playbook...
+
+PLAY [Set up and run Yolo e-commerce app] **************************************
+
+TASK [Gathering Facts] *********************************************************
+[WARNING]: Platform linux on host default is using the discovered Python
+interpreter at /usr/bin/python3.8, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.17/reference_appendices/interpreter_discovery.html for more information.
+ok: [default]
+
+TASK [docker : Install Python3 and pip3] ***************************************
+ok: [default]
+
+TASK [docker : Update pip] *****************************************************
+ok: [default]
+
+TASK [docker : Install 'Docker SDK for Python' using pip] **********************
+ok: [default]
+
+TASK [docker : Add Docker GPG key] *********************************************
+ok: [default]
+
+TASK [docker : Add Docker official repository] *********************************
+ok: [default]
+
+TASK [docker : Install Docker packages] ****************************************
+ok: [default]
+
+TASK [docker : Start Docker service] *******************************************
+ok: [default]
+
+TASK [docker : Add current user to docker group] *******************************
+ok: [default]
+
+TASK [docker : Download Docker Compose binary] *********************************
+ok: [default]
+
+TASK [docker : Verify Docker Compose installation] *****************************
+changed: [default]
+
+TASK [docker : Clone GitHub repository] ****************************************
+changed: [default]
+
+TASK [docker : Check if docker-compose.yml exists] *****************************
+ok: [default]
+
+TASK [docker : Copy docker-compose.yml] ****************************************
+skipping: [default]
+
+TASK [docker : Ensure correct permissions for Docker Compose file] *************
+ok: [default]
+
+TASK [docker : Run Docker Compose pull] ****************************************
+changed: [default]
+
+TASK [docker : Deploy Docker Compose] ******************************************
+changed: [default]
+
+TASK [frontend : Pull image from repository] ***********************************
+ok: [default]
+
+TASK [frontend : Build frontend Docker image] **********************************
+changed: [default]
+
+TASK [mongo : Ensure mynetwork exists] *****************************************
+ok: [default]
+
+TASK [mongo : Ensure MongoDB data volume exists] *******************************
+changed: [default]
+
+TASK [mongo : Run MongoDB container] *******************************************
+changed: [default]
+
+TASK [backend : Pull image from repository] ************************************
+ok: [default]
+
+TASK [backend : Create Node.js Backend Container] ******************************
+changed: [default]
+
+TASK [backend : Build backend Docker image] ************************************
+changed: [default]
+
+PLAY RECAP *********************************************************************
+default                    : ok=24   changed=9    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0  
+
+
+### pulled images in vagrant machine
+vagrant@vagrant:~/YoloApp$ docker images
+REPOSITORY                 TAG       IMAGE ID       CREATED          SIZE
+missnayomie/yolo-client    v1.0.0    7a9c91f89c4b   9 minutes ago    380MB
+missnayomie/yolo-backend   v1.0.0    6bed1c3bae60   12 minutes ago   144MB
+mongo                      latest    77c59b638412   2 days ago       855MB
+
+
+vagrant@vagrant:~/YoloApp$ docker ps
+CONTAINER ID   IMAGE                             COMMAND                  CREATED         STATUS         PORTS                                           NAMES
+4191cec5282a   missnayomie/yolo-client:v1.0.0    "docker-entrypoint.s…"   8 minutes ago   Up 8 minutes   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp       yolo-client
+4b141fbf8c54   missnayomie/yolo-backend:v1.0.0   "docker-entrypoint.s…"   8 minutes ago   Up 8 minutes   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp       yolo-backend
+b0da010c96ac   mongo:latest                      "docker-entrypoint.s…"   8 minutes ago   Up 8 minutes   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp   yoloapp_mongodb_1
+
+vagrant@vagrant:~/YoloApp$ docker-compose images
+    Container              Repository           Tag       Image Id       Size  
+-------------------------------------------------------------------------------
+yolo-backend        missnayomie/yolo-backend   v1.0.0   6bed1c3bae60   143.8 MB
+yolo-client         missnayomie/yolo-client    v1.0.0   7a9c91f89c4b   379.6 MB
+yoloapp_mongodb_1   mongo                      latest   77c59b638412   855.2 MB
+
+
