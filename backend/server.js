@@ -35,7 +35,12 @@ app.use(express.json())
 app.use(upload.array()); 
 
 // Cors 
-app.use(cors({ origin: ['http://192.168.56.10:3000', 'http://localhost:3000'] }));
+// CORS configuration
+app.use(cors({
+    origin: ['http://192.168.56.10:3000', 'http://localhost:3000'], // Replace with your domains
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
+  }));
 
 
 // Use Route
