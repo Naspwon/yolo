@@ -35,7 +35,8 @@ app.use(express.json())
 app.use(upload.array()); 
 
 // Cors 
-app.use(cors());
+app.use(cors({ origin: ['http://192.168.56.10:3000', 'http://localhost:3000'] }));
+
 
 // Use Route
 app.use('/api/products', productRoute)
