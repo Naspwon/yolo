@@ -1,4 +1,4 @@
-## YOLO Application Containerization with Docker
+## YOLO Application Containerization with Docker, Ansible, Terraform
 Overview
 This project demonstrates the containerization of an e-commerce web application using Docker and Docker Compose. The backend connects to a MongoDB database, and the frontend. The database, backend, and frontend are all run in separate containers orchestrated using Docker Compose.
 
