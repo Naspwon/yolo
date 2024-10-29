@@ -25,7 +25,7 @@ spec:
       volumes:
       - name: frontend-volume
         hostPath:
-          path: /home/james/MyWork/MORINGA/IP/week4_IP/yolo/client
+          path: /home/nash/Documents/Moringa/yolo/client
 ---
 apiVersion: v1
 kind: Service
