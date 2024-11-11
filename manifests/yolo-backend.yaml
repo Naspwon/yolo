@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo-backend
+  namespace: yolo-devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yolo-backend
+  template:
+    metadata:
+      labels:
+        app: yolo-backend
+    spec:
+      containers:
+        - name: yolo-backend
+          image: gcr.io/yolo-devops/missnayomie/brian-yolo-backend:v1.0.01.0.0
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URL
+              value: "mongodb://mongodb:27017/yolo"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yolo-backend
+  namespace: yolo-devops
+spec:
+  selector:
+    app: yolo-backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer
