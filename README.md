@@ -212,3 +212,82 @@ yolo-client         missnayomie/yolo-client    v1.0.0   7a9c91f89c4b   379.6 MB
 yoloapp_mongodb_1   mongo                      latest   77c59b638412   855.2 MB
 
 
+## Orchestrating to GCP
+Create the GKE Cluster
+- I set my desired region and zone
+	`gcloud config set compute/zone us-central1-a`
+- Created the GKE Cluster
+	gcloud container clusters create yolo-cluster \
+  --num-nodes=3 \
+  --machine-type=e2-medium \
+  --enable-autoscaling --min-nodes=1 --max-nodes=3 \
+  --zone=us-central1-a
+
+
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl get nodes -o wide
+NAME                                          STATUS   ROLES    AGE    VERSION               INTERNAL-IP   EXTERNAL-IP      OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-yolo-cluster-default-pool-c10c8268-8vzw   Ready    <none>   131m   v1.30.5-gke.1355000   10.128.0.3    35.222.181.39    Container-Optimized OS from Google   6.1.100+         containerd://1.7.22
+gke-yolo-cluster-default-pool-c10c8268-fkgj   Ready    <none>   131m   v1.30.5-gke.1355000   10.128.0.5    34.172.195.15    Container-Optimized OS from Google   6.1.100+         containerd://1.7.22
+gke-yolo-cluster-default-pool-c10c8268-s86p   Ready    <none>   131m   v1.30.5-gke.1355000   10.128.0.4    34.170.249.167   Container-Optimized OS from Google   6.1.100+         containerd://1.7.22
+
+
+
+- Enabled K8s Engine API
+    `gcloud services enable container.googleapis.com`
+- Authenticated to my google account after downloading gcloud sdk
+	`gcloud auth login`
+- Set up my project here
+	`gcloud config set project yolo-devops`
+- configured docker
+	`gcloud auth configure-docker`
+- Pulled my images from dockerhub
+	`docker pull missnayomie/brian-yolo-backend:v1.0.0`
+- Retagged them to:
+	`docker tag missnayomie/brian-yolo-backend:v1.0.0 gcr.io/yolo-devops/missnayomie/brian-yolo-backend:v1.0.0`
+- Pushed the new image name
+	`docker push gcr.io/yolo-devops/missnayomie/brian-yolo-backend:v1.0.0`
+
+	`docker pull missnayomie/brian-yolo-client:v1.0.0`
+	`docker tag missnayomie/brian-yolo-client:v1.0.0 gcr.io/yolo-devops/missnayomie/brian-yolo-client:v1.0.0`
+	`docker push gcr.io/yolo-devops/missnayomie/brian-yolo-client:v1.0.0`
+	`docker tag mongo gcr.io/yolo-devops/mongodb-image:v1.0.0`
+	`docker push gcr.io/yolo-devops/mongodb-image:v1.0.0`
+- Created a new namespace
+    `kubectl create namespace yolo-devops`
+
+
+## Applied Kubernetes Manifests
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl apply -f manifests/yolo-frontend.yaml 
+deployment.apps/yolo-frontend created
+service/yolo-frontend created
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl apply -f manifests/yolo-backend.yaml 
+deployment.apps/yolo-backend created
+service/yolo-backend created
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl apply -f manifests/mongodb-statefulset.yaml 
+statefulset.apps/mongodb created
+service/mongodb created
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl apply -f manifests/network-policy.yaml 
+networkpolicy.networking.k8s.io/allow-same-namespace created
+
+
+## Monitor Deployment
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl get deployment
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+yolo-backend    1/1     1            0           47s
+yolo-frontend   1/1     1            1           65s
+
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl get svc
+NAME            TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)          AGE
+mongodb         ClusterIP      34.118.235.172   <none>          27017/TCP        45s
+yolo-backend    LoadBalancer   34.118.237.3     35.222.181.39   5000:31117/TCP   55s
+yolo-frontend   LoadBalancer   34.118.227.222   34.55.188.56    80:30217/TCP     73s
+
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl get pods
+NAME                             READY   STATUS             RESTARTS      AGE
+mongodb-0                        1/1     Running            0             54s
+yolo-backend-fcfb5f6fb-m7926     1/1     Running            0             64s
+yolo-frontend-84dfbfff7c-m8j6t   1/1     Running            0             82s
+
+## Access the Application
+Once deployments are up and running, access application using the external IP or domain name associated with your GKE LoadBalancer.
+Application Accessible via: http://34.55.188.56/

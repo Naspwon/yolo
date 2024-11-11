@@ -84,6 +84,9 @@ service/yolo-backend created
 nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl apply -f manifests/mongodb-statefulset.yaml 
 statefulset.apps/mongodb created
 service/mongodb created
+nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl apply -f manifests/network-policy.yaml 
+networkpolicy.networking.k8s.io/allow-same-namespace created
+
 
 ## Monitor Deployment
 nash@nash-HP-Spectre:~/Documents/Moringa/yolo$ kubectl get deployment
