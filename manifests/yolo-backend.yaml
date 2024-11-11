@@ -15,12 +15,19 @@ spec:
     spec:
       containers:
         - name: yolo-backend
-          image: gcr.io/yolo-devops/missnayomie/brian-yolo-backend:v1.0.01.0.0
+          image: gcr.io/yolo-devops/missnayomie/brian-yolo-backend:v1.0.0
           ports:
             - containerPort: 5000
           env:
             - name: MONGO_URL
               value: "mongodb://mongodb:27017/yolo"
+          resources:
+            requests:
+              memory: "256Mi"   # Requesting 256 MiB of memory
+              cpu: "500m"       # Requesting 500 millicores of CPU
+            limits:
+              memory: "512Mi"   # Limiting to 512 MiB of memory
+              cpu: "1000m"      # Limiting to 1 core of CPU
 ---
 apiVersion: v1
 kind: Service

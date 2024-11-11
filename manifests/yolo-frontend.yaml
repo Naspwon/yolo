@@ -18,6 +18,14 @@ spec:
           image: gcr.io/yolo-devops/missnayomie/brian-yolo-client:v1.0.0
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"  # Requesting 128 MiB of memory
+              cpu: "250m"      # Requesting 250 millicores (1/4 core) of CPU
+            limits:
+              memory: "256Mi"  # Limiting to 256 MiB of memory
+              cpu: "500m"      # Limiting to 500 millicores (1/2 core) of CPU
+
 ---
 apiVersion: v1
 kind: Service
