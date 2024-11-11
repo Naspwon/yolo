@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: yolo-frontend
-          image: gcr.io/yolo-devops/missnayomie/brian-yolo-client:v1.0.0
+          image: gcr.io/yolo-devops/missnayomie/brian-yolo-client:v1.0.2
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           resources:
             requests:
               memory: "128Mi"  # Requesting 128 MiB of memory

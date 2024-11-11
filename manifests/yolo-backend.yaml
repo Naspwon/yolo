@@ -18,9 +18,9 @@ spec:
           image: gcr.io/yolo-devops/missnayomie/brian-yolo-backend:v1.0.0
           ports:
             - containerPort: 5000
-          env:
-            - name: MONGO_URL
-              value: "mongodb://mongodb:27017/yolo"
+          # env:
+          #   - name: MONGO_URL
+          #     value: "mongodb://mongodb.yolo-devops:27017/yolomy"
           resources:
             requests:
               memory: "256Mi"   # Requesting 256 MiB of memory

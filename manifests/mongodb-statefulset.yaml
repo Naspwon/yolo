@@ -26,10 +26,11 @@ spec:
     - metadata:
         name: mongodb-data
       spec:
-        accessModes: [ "ReadWriteOnce" ]
+        accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 6Gi
+            storage: 6Gi  # Size of the volume
+        storageClassName: standard  # Optional: specify a StorageClass if needed
 ---
 apiVersion: v1
 kind: Service

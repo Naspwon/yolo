@@ -2,7 +2,6 @@
 FROM node:16-alpine3.16 as build-stage
 
 # Set the working directory inside the container
-# WORKDIR /home/vagrant/YoloApp/
 WORKDIR /client
 
 # Copy package.json and package-lock.json
@@ -23,7 +22,7 @@ RUN npm run build
 FROM nginx:alpine as production-stage
 
 # Copy the built static files from the build-stage to Nginx's HTML directory
-COPY --from=build-stage /client /usr/share/nginx/html
+COPY --from=build-stage /client/build /usr/share/nginx/html
 
 # Expose port 80 for the Nginx server
 EXPOSE 80
